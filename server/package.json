@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/app.js"
+    "server": "nodemon index"
   },
   "author": "Andrey Savelev <sandrig.dev@gmail.com>",
   "license": "ISC",
