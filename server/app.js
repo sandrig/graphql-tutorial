@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const app = express()
 
-mongoose.connect('mongodb+srv://graph:FINvExwRoLj9NYUG@cluster0.undni.mongodb.net/test', {
+mongoose.connect('mongodb+srv://graph:FINvExwRoLj9NYUG@cluster0.undni.mongodb.net/graphdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
