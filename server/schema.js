@@ -7,7 +7,7 @@ const {
   GraphQLID,
   GraphQLInt,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
 } = graphql
 
 const Movies = require('./models/movie')
@@ -64,8 +64,8 @@ const MovieType = new GraphQLObjectType({
       resolve(parent, args) {
         // return directors.find(director => director.id === parent.id)
         return Directors.findById(parent.directorId)
-      }
-    }
+      },
+    },
   }),
 })
 
@@ -123,14 +123,14 @@ const Mutation = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Directors.findByIdAndRemove(args.id)
-      }
+      },
     },
     deleteMovie: {
       type: MovieType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Movies.findByIdAndRemove(args.id)
-      }
+      },
     },
     updateDirector: {
       type: DirectorType,
@@ -144,7 +144,7 @@ const Mutation = new GraphQLObjectType({
           args.id,
           { $set: { name: args.name, age: args.age } },
           { new: true },
-        );
+        )
       },
     },
     updateMovie: {
@@ -158,12 +158,18 @@ const Mutation = new GraphQLObjectType({
       resolve(parent, args) {
         return Movies.findByIdAndUpdate(
           args.id,
-          { $set: { name: args.name, genre: args.genre, directorId: args.directorId } },
+          {
+            $set: {
+              name: args.name,
+              genre: args.genre,
+              directorId: args.directorId,
+            },
+          },
           { new: true },
-        );
+        )
       },
     },
-  }
+  },
 })
 
 const Query = new GraphQLObjectType({
@@ -190,16 +196,16 @@ const Query = new GraphQLObjectType({
       resolve(parent, args) {
         // return movies
         return Movies.find({})
-      }
+      },
     },
     directors: {
       type: new GraphQLList(DirectorType),
       resolve(parent, args) {
         // return directors
         return Directors.find({})
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
 module.exports = new GraphQLSchema({

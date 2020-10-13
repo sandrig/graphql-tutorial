@@ -2,13 +2,19 @@ const express = require('express')
 const { graphqlHTTP } = require('express-graphql')
 const schema = require('./schema')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const app = express()
 
-mongoose.connect('mongodb+srv://graph:FINvExwRoLj9NYUG@cluster0.undni.mongodb.net/graphdb', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(
+  'mongodb+srv://graph:FINvExwRoLj9NYUG@cluster0.undni.mongodb.net/graphdb',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+)
+
+app.use(cors)
 
 app.use(
   '/graphql',
