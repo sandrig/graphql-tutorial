@@ -14,7 +14,7 @@ mongoose.connect(
   },
 )
 
-app.use(cors)
+app.use(cors())
 
 app.use(
   '/graphql',
