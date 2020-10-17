@@ -9,8 +9,10 @@ const app = express()
 mongoose.connect(
   'mongodb+srv://graph:FINvExwRoLj9NYUG@cluster0.undni.mongodb.net/graphdb',
   {
-    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
     useUnifiedTopology: true,
+    useNewUrlParser: true,
   },
 )
 
