@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import CreateIcon from '@material-ui/icons/Create'
 
 import MoviesDialog from '../MoviesDialog/MoviesDialog'
+import MoviesSearch from '../MoviesSearch/MoviesSearch'
 
 import withHocs from './MoviesTableHoc'
 
@@ -21,6 +22,23 @@ class MoviesTable extends React.Component {
   state = {
     anchorEl: null,
     openDialog: false,
+    name: '',
+  }
+
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value })
+  }
+
+  handleSearch = e => {
+    const { data } = this.props
+    const { name } = this.state
+
+    if (e.charCode === 13) {
+      data.fetchMore({
+        variables: { name },
+        updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
+      })
+    }
   }
 
   handleDialogOpen = () => {
@@ -52,7 +70,7 @@ class MoviesTable extends React.Component {
   }
 
   render() {
-    const { anchorEl, openDialog, data: activeElem = {} } = this.state
+    const { anchorEl, openDialog, data: activeElem = {}, name } = this.state
 
     const { classes, data = {} } = this.props
 
@@ -60,6 +78,13 @@ class MoviesTable extends React.Component {
 
     return (
       <>
+        <Paper>
+          <MoviesSearch
+            name={name}
+            handleChange={this.handleChange}
+            handleSearch={this.handleSearch}
+          />
+        </Paper>
         <MoviesDialog
           open={openDialog}
           handleClose={this.handleDialogClose}
